@@ -24,8 +24,10 @@ try {
             const justLinks = text.split('(').pop().replace(')', '');
             //console.log(justLinks);
             fetch(justLinks).then(response=>{
-              console.log(response.status, justLinks)
+              console.log(response.status, justLinks);
               //console.log(response)
+            } ).catch(err=>{
+              console.log(justLinks, 'File', '404')
             })
           })
         }
