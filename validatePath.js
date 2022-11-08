@@ -2,6 +2,7 @@
 const fs = require('fs')
 //Usar metodos de node
 const process = require('node:process');
+const  fetch = require('node-fetch');
 //Funcion que valide la ruta (path)
 const validatePath = (path) => {
     let result = 'no exist';
@@ -18,7 +19,15 @@ try {
           console.log(err);
         } else {
           //Obtener un arreglo con lo que coincida con la expresion 
-          console.log(Array.from(data.match(/\[(.+)\]\((https?:.+)\)/ig)));
+          const links = (Array.from(data.match(/\[(.+)\]\((https?:.+)\)/ig)));
+          links.forEach(text =>{
+            const justLinks = text.split('(').pop().replace(')', '');
+            //console.log(justLinks);
+            fetch(justLinks).then(response=>{
+              console.log(response.status, justLinks)
+              //console.log(response)
+            })
+          })
         }
       });
     console.log('Si es un archivo md  :) ')
